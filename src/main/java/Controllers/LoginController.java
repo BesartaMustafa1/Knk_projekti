@@ -63,7 +63,7 @@ public class LoginController {
                 Navigator.navigate(event, lastPage);
                 SessionManager.setLastAttemptedPage(null);
             } else {
-                System.out.println("Success");
+                Navigator.navigate(event,Navigator.HOME_PAGE);
             }
             System.out.println("Log In Successful.");
         } else {
