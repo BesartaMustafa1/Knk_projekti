@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="659.0" prefWidth="929.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ReturnBookController">
+   <children>
+      <BorderPane layoutX="-1.0" prefHeight="659.0" prefWidth="929.0">
+         <left>
+            <VBox maxWidth="210.0" prefHeight="200.0" prefWidth="210.0" BorderPane.alignment="CENTER"> <children>
+                <fx:include source="Navbar.fxml" />
+            </children>
+            </VBox>
+         </left>
+         <center>
+            <Pane prefHeight="200.0" prefWidth="210.0" style="-fx-background-color: #d3d3d3;" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView  fx:id="tableView" layoutX="46.0" layoutY="99.0" prefHeight="382.0" prefWidth="626.0">
+                    <columns>
+                      <TableColumn fx:id="studentColumn" prefWidth="75.0" text="StudentID" />
+                      <TableColumn fx:id="bookColumn" prefWidth="75.0" text="BookID" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <Button layoutX="549.0" onAction="#returnBook" layoutY="504.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Return Book" />
+                  <Button fx:id="btnFilter" layoutX="263.0" layoutY="567.0" mnemonicParsing="false" onAction="#filter" text="Filter" />
+                  <TextField fx:id="bookID" layoutX="33.0" layoutY="504.0" promptText="BookID" />
+                  <TextField fx:id="studentID" layoutX="33.0" layoutY="542.0" promptText="StudentID" />
+
+
+                   <Button fx:id="btnClear" layoutX="338.0" layoutY="567.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
+               </children>
+            </Pane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
