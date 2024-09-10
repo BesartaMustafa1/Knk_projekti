@@ -9,6 +9,8 @@ import app.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.sql.*;
@@ -35,7 +37,19 @@ public class LoginController {
 
     @FXML
     private Label username;
+    @FXML
+    public void initialize() {
+        txtEmail.setOnKeyPressed(this::handleKeyPressed);
+        pswPassword.setOnKeyPressed(this::handleKeyPressed);
+    }
 
+    @FXML
+    private void handleKeyPressed(KeyEvent ke)  {
+        if (ke.getCode() == KeyCode.ENTER) {
+            ActionEvent actionEvent = new ActionEvent(ke.getSource(), null);
+            LoginBtn(actionEvent);
+        }
+    }
     @FXML
     void CancleBtn(ActionEvent event) {
         Navigator.navigate(event, Navigator.LOGIN_PAGE);
@@ -43,7 +57,7 @@ public class LoginController {
     }
 
     @FXML
-    void LoginBtn(ActionEvent event) throws SQLException {
+    void LoginBtn(ActionEvent event)  {
 //        if (txtEmail.getText().isBlank()==false && pswPassword.getText().isBlank()==false){
 //            validateLogin();
 //        }else {

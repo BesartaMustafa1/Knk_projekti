@@ -10,6 +10,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
@@ -36,12 +38,28 @@ public class SignupController {
 
     @FXML
     private TextField txtName;
+    @FXML
+    public void initialize() {
+        txtName.setOnKeyPressed(this::handleKeyPressed);
+        txtLastName.setOnKeyPressed(this::handleKeyPressed);
+        txtEmail.setOnKeyPressed(this::handleKeyPressed);
+        pswPassword.setOnKeyPressed(this::handleKeyPressed);
+        pswCPassword.setOnKeyPressed(this::handleKeyPressed);
+    }
+
+    @FXML
+    private void handleKeyPressed(KeyEvent ke) {
+        if (ke.getCode() == KeyCode.ENTER) {
+            ActionEvent actionEvent = new ActionEvent(ke.getSource(), null);
+            HandelSignup(actionEvent);
+        }
+    }
 
     @FXML
     void HandelSignup(ActionEvent event) {
         if (SessionManager.isLoggedIn()) {
             System.out.println("Already logged in. No need to sign up.");
-            Navigator.navigate(event, Navigator.LOGIN_PAGE);  // Redirect to home
+            Navigator.navigate(event, Navigator.HOME_PAGE);
             return;
         }
         String firstName = txtName.getText();
@@ -61,7 +79,7 @@ public class SignupController {
             boolean success = UserService.signUp(userData);
             if (success) {
                 showAlert(Alert.AlertType.INFORMATION, "Registration Successful!", "Welcome " + firstName);
-                // Navigate to login or other page
+                Navigator.navigate(event, Navigator.HOME_PAGE);
             } else {
                 showAlert(Alert.AlertType.ERROR, "Registration Failed", "An error occurred while creating the account.");
             }

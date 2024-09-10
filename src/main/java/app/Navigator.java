@@ -18,9 +18,12 @@ import java.util.ResourceBundle;
 public class Navigator {
     public static final String SIGNUP_PAGE = "Signup.fxml";
     public static final String LOGIN_PAGE = "Login.fxml";
-
+    public static final String HOME_PAGE = "Home.fxml";
+    public static final String STUDENT_PAGE = "Student.fxml";
+    public static final String BOOK_PAGE = "Book.fxml";
+    public static final String RETURNBOOK_PAGE = "ReturnBook.fxml";
     private static final Map<String, Object> params = new HashMap<>();
-    private static ResourceBundle bundle = ResourceBundle.getBundle("translations.content", Locale.getDefault());
+   private static ResourceBundle bundle = ResourceBundle.getBundle("translations.content", Locale.getDefault());
     public interface ParametrizedController {
         void setParams(Object params);
     }
@@ -81,7 +84,7 @@ public class Navigator {
         } else {
             Locale.setDefault(Locale.ENGLISH);
         }
-        bundle = ResourceBundle.getBundle("translations.content", Locale.getDefault());
+       bundle = ResourceBundle.getBundle("translations.content", Locale.getDefault());
     }
     public static Pane loadPane(String form) {
         try {

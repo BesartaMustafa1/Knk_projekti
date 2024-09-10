@@ -56,7 +56,7 @@
             <PasswordField fx:id="pswPassword" layoutX="60.0" layoutY="213.0" prefHeight="26.0" prefWidth="254.0" style="-fx-background-color: white;" />
             <PasswordField fx:id="pswCPassword" layoutX="60.0" layoutY="274.0" prefHeight="26.0" prefWidth="254.0" style="-fx-background-color: white;" />
             <Button fx:id="btnCancel" layoutX="79.0" layoutY="322.0" mnemonicParsing="false" onAction="#HandleCancel" style="-fx-background-color: black;" text="Cancel" />
-            <Button fx:id="btnSignup" layoutX="208.0" layoutY="322.0" mnemonicParsing="false" onAction="#HandelSignup" style="-fx-background-color: black;" text="Signup" />
+            <Button fx:id="btnSignup" layoutX="208.0" layoutY="322.0" mnemonicParsing="false" onAction="#HandelSignup" onKeyPressed="#handleKeyPressed" style="-fx-background-color: black;" text="Signup" />
          </children>
       </AnchorPane>
       <Label accessibleRole="HYPERLINK" layoutX="141.0" layoutY="530.0" onMouseClicked="#HandleLogin" text="I have alrady an account!" textFill="#121b7b" underline="true" />

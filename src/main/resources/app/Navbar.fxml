@@ -3,38 +3,60 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="667.0" prefWidth="210.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.NavbarController">
    <children>
       <VBox prefHeight="667.0" prefWidth="210.0">
          <children>
-            <FontAwesomeIcon glyphName="HOME" onMouseClicked="#sendHome" size="2em" text=" HOME">
+            <SplitPane dividerPositions="0.2" maxHeight="800.0" maxWidth="214.0" prefHeight="800.0" prefWidth="214.0">
+               <items>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="194.0" prefWidth="74.0">
+                     <children>
+                        <FontAwesomeIcon glyphName="HOME" layoutX="3.0" layoutY="43.0" onMouseClicked="#sendHome" size="2em" text="" AnchorPane.topAnchor="20.0" />
+                        <FontAwesomeIcon glyphName="BOOK" layoutX="3.0" layoutY="83.0" onMouseClicked="#sendToBooks" size="2em" text=" " AnchorPane.topAnchor="60.0" />
+                        <FontAwesomeIcon glyphName="USERS" layoutX="2.0" layoutY="130.0" onMouseClicked="#sendToStudents" size="2em" text=" " />
+                        <FontAwesomeIcon glyphName="SHARE" layoutX="4.0" layoutY="181.0" onMouseClicked="#sendToReturnBook" size="2em" text=" " />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="208.0" prefWidth="164.0">
+                     <children>
+                        <Label fx:id="Home" layoutX="14.0" layoutY="23.0" onMouseClicked="#sendHome" text="HOME">
+                           <font>
+                              <Font name="System Bold Italic" size="19.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="Book" layoutX="12.0" layoutY="61.0" onMouseClicked="#sendToBooks" text="BOOK">
+                           <font>
+                              <Font name="System Bold Italic" size="19.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="Students" layoutX="12.0" layoutY="107.0" onMouseClicked="#sendToStudents" text="STUDENTS">
+                           <font>
+                              <Font name="System Bold Italic" size="19.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="ReturnBook" layoutX="10.0" layoutY="151.0" onMouseClicked="#sendToReturnBook" text="RETURNBOOK">
+                           <font>
+                              <Font name="System Bold Italic" size="19.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </items>
                <VBox.margin>
-                  <Insets left="25.0" top="200.0" />
+                  <Insets top="150.0" />
                </VBox.margin>
-            </FontAwesomeIcon>
-            <FontAwesomeIcon glyphName="BOOK" onMouseClicked="#sendToBooks" size="2em" text=" BOOKS">
-               <VBox.margin>
-                  <Insets left="25.0" top="20.0" />
-               </VBox.margin>
-            </FontAwesomeIcon>
-            <FontAwesomeIcon glyphName="USERS" onMouseClicked="#sendToStudents" size="2em" text=" STUDENTS">
-               <VBox.margin>
-                  <Insets left="25.0" top="20.0" />
-               </VBox.margin>
-            </FontAwesomeIcon>
-            <FontAwesomeIcon glyphName="SHARE" onMouseClicked="#sendToReturnBook" size="2em" text=" RETURN BOOK">
-               <VBox.margin>
-                  <Insets left="25.0" top="20.0" />
-               </VBox.margin>
-            </FontAwesomeIcon>
+            </SplitPane>
             <HBox prefHeight="667.0" prefWidth="200.0">
                <children>
                   <FontAwesomeIcon glyphName="LANGUAGE" size="2em" />
-                  <Button mnemonicParsing="false" onAction="#handleChangeLanguage" text="EN | AL">
+                  <Button fx:id="btnLanguage" mnemonicParsing="false" onAction="#handleChangeLanguage" text="Language" >
                      <HBox.margin>
                         <Insets left="15.0" />
                      </HBox.margin>
