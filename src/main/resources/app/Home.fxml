@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,24 +17,28 @@
             <AnchorPane prefHeight="570.0" prefWidth="646.0" style="-fx-background-color: d3d3d3;" BorderPane.alignment="CENTER">
                <children>
                   <HBox layoutX="-1.0" prefHeight="100.0" prefWidth="646.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <TableView fx:id="Books" layoutX="33.0" layoutY="115.0" prefHeight="200.0" prefWidth="200.0">
+                  <TableView fx:id="Books" layoutX="18.0" layoutY="119.0" prefHeight="200.0" prefWidth="249.0">
                     <columns>
-                       <TableColumn fx:id="bookIdColumn" text="Book ID" />
-                       <TableColumn fx:id="bookNameColumn" text="Book Name" />
-                       <TableColumn fx:id="autorColumn" text="Author" />
-                       <TableColumn fx:id="quantityColumn" text="Quantity" />
+                       <TableColumn fx:id="bookIdColumn" prefWidth="56.79998588562012" text="Book ID" />
+                       <TableColumn fx:id="bookNameColumn" prefWidth="76.79999542236328" text="Book Name" />
+                       <TableColumn fx:id="autorColumn" prefWidth="66.4000244140625" text="Author" />
+                       <TableColumn fx:id="quantityColumn" prefWidth="47.99999389648437" text="Quantity" />
                     </columns>
                   </TableView>
-                  <PieChart fx:id="BookChart" layoutX="294.0" layoutY="151.0" prefHeight="316.0" prefWidth="366.0" />
-                  <TableView fx:id="Students" layoutX="33.0" layoutY="347.0" prefHeight="200.0" prefWidth="200.0">
+                  <TableView fx:id="Students" layoutX="20.0" layoutY="347.0" prefHeight="200.0" prefWidth="231.0">
                      <columns>
                         <TableColumn fx:id="studentIDColumn" prefWidth="75.0" text="StudentID" />
-                        <TableColumn fx:id="nameColumn" prefWidth="115.20001220703125" text="Name" />
-                        <TableColumn fx:id="emailColumn" prefWidth="141.60009765625" text="Email" />
                         <TableColumn fx:id="bookIDColumn" prefWidth="150.39999389648438" text="BookID" />
-                        <TableColumn fx:id="departmentColumn" prefWidth="127.199951171875" text="Department" />
                      </columns>
                   </TableView>
+                  <BarChart fx:id="BookChart" layoutX="253.0" layoutY="106.0" prefHeight="378.0" prefWidth="432.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </BarChart>
                </children>
             </AnchorPane>
          </center>

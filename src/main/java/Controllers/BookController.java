@@ -2,6 +2,7 @@ package Controllers;
 
 import Model.Book;
 import Service.BookService;
+import app.SessionManager;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -49,6 +51,7 @@ public class BookController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Initialize table columns
+        setTranslations();
         bookIDColumn.setCellValueFactory(new PropertyValueFactory<>("bookID"));
         bookNameColumn.setCellValueFactory(new PropertyValueFactory<>("bookName"));
         autorColumn.setCellValueFactory(new PropertyValueFactory<>("autor"));
@@ -56,6 +59,17 @@ public class BookController implements Initializable {
 
         // Load initial data
         loadBooks();
+
+    }
+    private void setTranslations() {
+        Locale currentLocale = SessionManager.getLocale();
+        ResourceBundle bundle = ResourceBundle.getBundle("translations.content", currentLocale);
+
+        bookIDColumn.setText(bundle.getString("bookID"));
+        bookNameColumn.setText(bundle.getString("bookName"));
+        autorColumn.setText(bundle.getString("autor"));
+        quantityColumn.setText(bundle.getString("quantity"));
+
 
     }
     public void refreshTable() {

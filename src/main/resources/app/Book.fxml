@@ -52,7 +52,7 @@
                                     </FontAwesomeIcon>
                                     <ImageView fitHeight="38.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../MenaxhimiBiblotekes/src/main/resources/images/idbook.png" />
+                                          <Image url="@../images/idbook.png" />
                                        </image>
                                        <VBox.margin>
                                           <Insets left="10.0" top="25.0" />
@@ -68,7 +68,7 @@
                                           <Insets left="10.0" top="25.0" />
                                        </VBox.margin>
                                        <image>
-                                          <Image url="@../../../../../MenaxhimiBiblotekes/src/main/resources/images/quantity.png" />
+                                          <Image url="@../images/quantity.png" />
                                        </image>
                                     </ImageView>
                                  </children>

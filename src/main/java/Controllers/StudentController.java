@@ -4,6 +4,7 @@ import Model.Book;
 import Model.Student;
 import Service.BookService;
 import Service.StudentService;
+import app.SessionManager;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -65,7 +67,7 @@ public class StudentController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        setTranslations();
         studentIDColumn.setCellValueFactory(new PropertyValueFactory<>("studentID"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -74,7 +76,16 @@ public class StudentController implements Initializable {
 
         loadStudents();
     }
-    
+    private void setTranslations() {
+        Locale currentLocale = SessionManager.getLocale();
+        ResourceBundle bundle = ResourceBundle.getBundle("translations.content", currentLocale);
+
+        studentIDColumn.setText(bundle.getString("studentID"));
+        nameColumn.setText(bundle.getString("nameColumn"));
+        emailColumn.setText(bundle.getString("emailColumn"));
+        bookIDColumn.setText(bundle.getString("bookID"));
+        departmentColumn.setText(bundle.getString("department"));
+    }
     @FXML
     void AddSt(MouseEvent event) {
         String studentID = txtStudentID.getText();

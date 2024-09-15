@@ -3,6 +3,7 @@ package Controllers;
 import Model.ReturnBook;
 import Repository.ReturnBookRepository;
 import Service.ReturnBookService;
+import app.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ReturnBookController implements Initializable {
@@ -52,9 +54,17 @@ public class ReturnBookController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setTranslations();
         studentColumn.setCellValueFactory(new PropertyValueFactory<>("studentID"));
         bookColumn.setCellValueFactory(new PropertyValueFactory<>("bookID"));
         loadReturnBookData();
+    }
+    private void setTranslations() {
+        Locale currentLocale = SessionManager.getLocale();
+        ResourceBundle bundle = ResourceBundle.getBundle("translations.content", currentLocale);
+
+        studentColumn.setText(bundle.getString("studentID"));
+        bookColumn.setText(bundle.getString("bookID"));
     }
 
     @FXML

@@ -4,8 +4,11 @@ import Model.Book;
 import Model.Student;
 import Service.BookService;
 import Service.StudentService;
+import app.SessionManager;
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,11 +16,13 @@ import javafx.scene.layout.VBox;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class HomeController {
 
     @FXML
-    private PieChart BookChart;
+    private BarChart BookChart;
 
     @FXML
     private TableView<Book> Books;
@@ -65,6 +70,7 @@ public class HomeController {
 
     @FXML
     private void initialize() {
+        setTranslations();
         // Setup Book TableView
         bookIdColumn.setCellValueFactory(new PropertyValueFactory<>("bookID"));
         bookNameColumn.setCellValueFactory(new PropertyValueFactory<>("bookName"));
@@ -73,10 +79,7 @@ public class HomeController {
 
         // Setup Student TableView
         studentIDColumn.setCellValueFactory(new PropertyValueFactory<>("studentID"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         bookIDColumn.setCellValueFactory(new PropertyValueFactory<>("bookID"));
-        departmentColumn.setCellValueFactory(new PropertyValueFactory<>("department"));
 
         try {
             loadBookData();
@@ -86,7 +89,19 @@ public class HomeController {
             e.printStackTrace();
         }
     }
+    private void setTranslations() {
+        Locale currentLocale = SessionManager.getLocale();
+        ResourceBundle bundle = ResourceBundle.getBundle("translations.content", currentLocale);
 
+        bookIdColumn.setText(bundle.getString("bookID"));
+        bookNameColumn.setText(bundle.getString("bookName"));
+        autorColumn.setText(bundle.getString("autor"));
+        quantityColumn.setText(bundle.getString("quantity"));
+
+        studentIDColumn.setText(bundle.getString("studentID"));
+        bookIDColumn.setText(bundle.getString("bookID"));
+
+    }
     private void loadBookData() throws SQLException {
         List<Book> books = bookService.getAllBooks();
         Books.getItems().setAll(books);
@@ -99,9 +114,15 @@ public class HomeController {
 
     private void loadBookChart() throws SQLException {
         List<Book> books = bookService.getAllBooks();
-        PieChart.Data[] data = books.stream()
-                .map(book -> new PieChart.Data(book.getBookName(), book.getQuantity()))
-                .toArray(PieChart.Data[]::new);
-        BookChart.getData().setAll(data);
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Numri i Librave");
+        for (Book book : books) {
+            XYChart.Data<String, Number> data = new XYChart.Data<>(book.getBookName(), book.getQuantity());
+            series.getData().add(data);
+        }
+
+        BookChart.getData().clear();
+        BookChart.getData().add(series);
     }
 }
