@@ -16,7 +16,7 @@ public class ReturnBookRepository {
 
     public List<ReturnBook> getAllReturnBooks() throws SQLException {
         List<ReturnBook> returnBooks = new ArrayList<>();
-        String query = "SELECT BookID, StudentID FROM ReturnBook";
+        String query = "SELECT StudentID, BookID FROM Student WHERE BookID IS NOT NULL";
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
