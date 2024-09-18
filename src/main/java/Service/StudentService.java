@@ -30,6 +30,9 @@ public class StudentService {
         List<Student> students = studentRepository.getAllStudents();
         return FXCollections.observableArrayList(students);
     }
+    public List<Student> getStudentsWithBooks() throws SQLException {
+        return studentRepository.getStudentsWithBooks();
+    }
 
     public boolean delete(int StudentID) {
         return studentRepository.delete(StudentID);

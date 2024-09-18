@@ -1,6 +1,7 @@
 package Controllers;
 
 import Model.ReturnBook;
+import Model.filter.ReturnBookFilter;
 import Repository.ReturnBookRepository;
 import Service.ReturnBookService;
 import app.SessionManager;
@@ -9,14 +10,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -75,24 +75,26 @@ public class ReturnBookController implements Initializable {
 
     @FXML
     void filter(ActionEvent event) {
-        String studentIdText = studentID.getText().trim();
-        String bookIdText = bookID.getText().trim();
+            int studentId = studentID.getText().isEmpty() ? 0 : Integer.parseInt(studentID.getText().trim());
+            int bookId = bookID.getText().isEmpty() ? 0 : Integer.parseInt(bookID.getText().trim());
 
-        ObservableList<ReturnBook> filteredList = FXCollections.observableArrayList();
+            ReturnBookFilter filter = new ReturnBookFilter(studentId, bookId);
 
-        for (ReturnBook rb : returnBookList) {
-            boolean matchesStudentID = studentIdText.isEmpty() || String.valueOf(rb.getStudentID()).equals(studentIdText);
-            boolean matchesBookID = bookIdText.isEmpty() || String.valueOf(rb.getBookID()).equals(bookIdText);
+            try {
+                List<ReturnBook> filteredReturnBooks = returnBookService.filterReturnBook(filter);
+                returnBookList.setAll(filteredReturnBooks);
+                tableView.setItems(returnBookList);
 
-            if (matchesStudentID && matchesBookID) {
-                filteredList.add(rb);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Gabim gjatë filtrimit të të dhënave.");
             }
         }
 
-        tableView.setItems(filteredList);
-    }
 
-    @FXML
+
+
+        @FXML
     void returnBook(ActionEvent event) {
         ReturnBook selectedReturnBook = tableView.getSelectionModel().getSelectedItem();
 

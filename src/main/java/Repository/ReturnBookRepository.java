@@ -1,6 +1,7 @@
 package Repository;
 
 import Model.ReturnBook;
+import Model.filter.ReturnBookFilter;
 import Service.DBConnector;
 
 import java.sql.*;
@@ -41,6 +42,35 @@ public class ReturnBookRepository {
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setInt(1, bookID);
             pstmt.executeUpdate();
+        }
+    }
+    public static List<ReturnBook> filterReturnBook(Connection conn, ReturnBookFilter filter) throws SQLException {
+        List<ReturnBook> returnBooks = new ArrayList<>();
+        String query = "SELECT * FROM ReturnBook WHERE StudentID = ? AND BookID = ?";
+        try (PreparedStatement pst = conn.prepareStatement(query)) {
+            pst.setInt(1, filter.getStudentId());
+            pst.setInt(2, filter.getBookId());
+
+            // Ekzekuto query-n dhe përpuno rezultatin
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    ReturnBook returnBook = getFromResultSet(rs);
+                    if (returnBook != null) {
+                        returnBooks.add(returnBook);
+                    }
+                }
+            }
+        }
+        return returnBooks;
+    }
+
+    public static ReturnBook getFromResultSet(ResultSet rs){
+        try{
+            return new ReturnBook(rs.getInt("StudentID"),
+                    rs.getInt("BookID"));
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
         }
     }
 }

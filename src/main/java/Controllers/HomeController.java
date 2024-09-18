@@ -7,8 +7,8 @@ import Service.StudentService;
 import app.SessionManager;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -28,9 +28,6 @@ public class HomeController {
     private TableView<Book> Books;
 
     @FXML
-    private TableView<Student> Students;
-
-    @FXML
     private VBox slider;
 
     @FXML
@@ -46,19 +43,11 @@ public class HomeController {
     private TableColumn<Book, Integer> quantityColumn;
 
     @FXML
-    private TableColumn<Student, Integer> studentIDColumn;
-
+    private Label studentCountLabel;
     @FXML
-    private TableColumn<Student, String> nameColumn;
+    private Label nr;
 
-    @FXML
-    private TableColumn<Student, String> emailColumn;
 
-    @FXML
-    private TableColumn<Student, Integer> bookIDColumn;
-
-    @FXML
-    private TableColumn<Student, String> departmentColumn;
 
     private BookService bookService;
     private StudentService studentService;
@@ -77,10 +66,6 @@ public class HomeController {
         autorColumn.setCellValueFactory(new PropertyValueFactory<>("autor"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
-        // Setup Student TableView
-        studentIDColumn.setCellValueFactory(new PropertyValueFactory<>("studentID"));
-        bookIDColumn.setCellValueFactory(new PropertyValueFactory<>("bookID"));
-
         try {
             loadBookData();
             loadStudentData();
@@ -98,9 +83,6 @@ public class HomeController {
         autorColumn.setText(bundle.getString("autor"));
         quantityColumn.setText(bundle.getString("quantity"));
 
-        studentIDColumn.setText(bundle.getString("studentID"));
-        bookIDColumn.setText(bundle.getString("bookID"));
-
     }
     private void loadBookData() throws SQLException {
         List<Book> books = bookService.getAllBooks();
@@ -108,10 +90,10 @@ public class HomeController {
     }
 
     private void loadStudentData() throws SQLException {
-        List<Student> students = studentService.getAllStudents();
-        Students.getItems().setAll(students);
+        List<Student> students = studentService.getStudentsWithBooks();
+        int studentCount = students.size();
+        studentCountLabel.setText(" " + studentCount);
     }
-
     private void loadBookChart() throws SQLException {
         List<Book> books = bookService.getAllBooks();
 

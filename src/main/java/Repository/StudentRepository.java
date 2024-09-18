@@ -91,5 +91,27 @@ public class StudentRepository {
             return null;
         }
     }
+    public List<Student> getStudentsWithBooks() throws SQLException {
+        List<Student> students = new ArrayList<>();
+        String query = "SELECT * FROM Student WHERE BookID IS NOT NULL";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement pstm = conn.prepareStatement(query);
+             ResultSet resultSet = pstm.executeQuery()) {
+
+            while (resultSet.next()) {
+                int studentID = resultSet.getInt("studentID");
+                String name = resultSet.getString("name");
+                String email = resultSet.getString("email");
+                int bookID = resultSet.getInt("bookID");
+                String department = resultSet.getString("department");
+
+                students.add(new Student(studentID, name, email, bookID, department));
+            }
+        }
+
+        return students;
+    }
+
 
 }
